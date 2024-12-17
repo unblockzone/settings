@@ -114,6 +114,7 @@
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 150px;
+            cursor: pointer;
         }
 
         .cloaker-option:hover {
@@ -126,25 +127,6 @@
             height: 80px;
             border-radius: 10px;
             margin-bottom: 10px;
-        }
-
-        .cloaker-option input {
-            display: block;
-            margin: 5px auto;
-            width: 90%;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .scroll-box {
-                width: 90%;
-                height: 60vh;
-            }
-            .cloaker-option {
-                width: 120px;
-            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
@@ -166,9 +148,39 @@
     <div class="scroll-box">
         <h2>Tab Cloacker</h2>
         <div class="cloaker-section">
-            <!-- Cloaker Option -->
+            <!-- Canvas -->
+            <div class="cloaker-option" onclick="setTabCloak('Home', '')">
+                <img src="https://via.placeholder.com/80" alt="Canvas">
+                <span>Canvas</span>
+            </div>
+            <!-- Google Drive -->
+            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive', '')">
+                <img src="https://via.placeholder.com/80" alt="Google Drive">
+                <span>Google Drive</span>
+            </div>
+            <!-- YouTube -->
+            <div class="cloaker-option" onclick="setTabCloak('YouTube', '')">
+                <img src="https://via.placeholder.com/80" alt="YouTube">
+                <span>YouTube</span>
+            </div>
+            <!-- Outlook -->
+            <div class="cloaker-option" onclick="setTabCloak('Outlook – free personal email', '')">
+                <img src="https://via.placeholder.com/80" alt="Outlook">
+                <span>Outlook</span>
+            </div>
+            <!-- Classroom -->
+            <div class="cloaker-option" onclick="setTabCloak('Google Classroom', '')">
+                <img src="https://via.placeholder.com/80" alt="Classroom">
+                <span>Classroom</span>
+            </div>
+            <!-- Khan Academy -->
+            <div class="cloaker-option" onclick="setTabCloak('Khan Academy', '')">
+                <img src="https://via.placeholder.com/80" alt="Khan Academy">
+                <span>Khan Academy</span>
+            </div>
+            <!-- Custom Cloaker -->
             <div class="cloaker-option">
-                <img src="https://via.placeholder.com/80" alt="Cloaker">
+                <img src="https://via.placeholder.com/80" alt="Custom">
                 <span>Custom Cloaker</span>
                 <input type="text" placeholder="Custom URL" id="custom-url">
                 <input type="text" placeholder="Custom Name" id="custom-name">
@@ -187,21 +199,24 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Custom Cloaker Functionality
+        // Set tab cloaking function
+        function setTabCloak(title, iconUrl) {
+            document.title = title;
+            if (iconUrl) {
+                const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+                link.rel = 'icon';
+                link.href = iconUrl;
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        }
+
+        // Custom Cloaker
         document.getElementById("custom-name").addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
                 const customName = document.getElementById("custom-name").value;
                 const customUrl = document.getElementById("custom-url").value;
-
                 if (customName) {
-                    document.title = customName; // Update tab title
-                }
-
-                if (customUrl) {
-                    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
-                    link.rel = 'icon';
-                    link.href = customUrl;
-                    document.getElementsByTagName('head')[0].appendChild(link);
+                    setTabCloak(customName, customUrl);
                 }
             }
         });
