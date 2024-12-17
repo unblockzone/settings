@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UnblockZone - Settings</title>
     <style>
-        /* Prevent scrolling on the body and set overall page style */
+        /* Prevent scrolling */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: auto; /* Allow scrolling */
-            transition: background-color 0.3s, color 0.3s;
+            overflow: hidden;
         }
 
         body {
@@ -21,7 +20,7 @@
             display: flex;
             flex-direction: column;
             text-align: center;
-            padding: 20px 0;
+            position: relative;
         }
 
         header {
@@ -85,7 +84,7 @@
         /* Scrollable Box */
         .scroll-box {
             width: 80%;
-            height: auto;
+            height: 70vh;
             margin: 50px auto;
             background-color: #333;
             border-radius: 20px;
@@ -98,94 +97,53 @@
             color: #008CFF;
         }
 
-        /* Custom Background Box */
-        .input-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .input-container input {
-            padding: 10px;
-            width: 60%;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .input-container button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #008CFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .input-container button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Theme Changer Round Box */
-        .theme-section {
+        /* Cloaker Section */
+        .cloaker-section {
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
             gap: 20px;
-            margin-top: 30px;
-            border-radius: 50px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .cloaker-option {
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px #111;
             padding: 10px;
-            background: url('https://example.com/your-background.gif') no-repeat center center;
-            background-size: cover;
-            box-shadow: 0 0 15px 3px #000;
+            text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .theme-section:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px 5px blue;
-        }
-
-        .theme-option {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            width: 150px;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .theme-option:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 20px 5px blue;
-        }
-
-        /* Custom GIFs for Each Theme */
-        .theme-option.dark { background: url('https://example.com/dark-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.white { background: url('https://example.com/white-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.galaxy { background: url('https://example.com/galaxy-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.rainbow { background: url('https://example.com/rainbow-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.dark-blue { background: url('https://example.com/dark-blue-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.christmas { background: url('https://example.com/christmas-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.purple { background: url('https://example.com/purple-theme.gif') no-repeat center center; background-size: cover; }
-        .theme-option.pink { background: url('https://example.com/pink-theme.gif') no-repeat center center; background-size: cover; }
-
-        /* Custom Background Round Box Style */
-        .background-box {
-            position: relative;
-            margin: 20px auto;
-            width: 80%;
-            padding: 10px;
-            border-radius: 20px;
-            overflow: hidden;
-            background: url('https://example.com/your-background.gif') no-repeat center center;
-            background-size: cover;
-            box-shadow: 0 0 15px 3px #000;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .background-box:hover {
+        .cloaker-option:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 25px 5px blue;
+            box-shadow: 0 0 15px 5px #008CFF;
         }
 
+        .cloaker-option img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Animating Favicon with Zoom and Glow */
+        @keyframes zoomGlow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px 0 blue;
+            }
+            50% {
+                transform: scale(1.2);
+                box-shadow: 0 0 20px 5px blue;
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px 0 blue;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -201,13 +159,6 @@
         </div>
         <div id="clock" class="clock"></div>
     </header>
-
-    <!-- Input for Custom Background URL -->
-    <div class="input-container">
-        <h2>Enter a Custom Background URL</h2>
-        <input type="text" id="bg-url" placeholder="Paste background image URL here">
-        <button onclick="setCustomBackground()">Set Background</button>
-    </div>
 
     <!-- Scrollable Settings Box -->
     <div class="scroll-box">
@@ -228,24 +179,17 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
                 <span>YouTube</span>
             </div>
-            <!-- Gmail -->
-            <div class="cloaker-option" onclick="setTabCloak('Gmail', 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Gmail_Logo.svg')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Gmail_Logo.svg" alt="Gmail">
-                <span>Gmail</span>
+            <!-- Outlook -->
+            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
+                <span>Outlook</span>
+            </div>
+            <!-- Custom Option -->
+            <div class="cloaker-option" onclick="setTabCloak('UnblockZone', 'https://cdn-icons-png.flaticon.com/512/61/61457.png')">
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="UnblockZone">
+                <span>Custom Tab</span>
             </div>
         </div>
-    </div>
-
-    <!-- Theme Changer -->
-    <div class="theme-section">
-        <div class="theme-option dark" onclick="changeTheme('dark')"></div>
-        <div class="theme-option white" onclick="changeTheme('white')"></div>
-        <div class="theme-option galaxy" onclick="changeTheme('galaxy')"></div>
-        <div class="theme-option rainbow" onclick="changeTheme('rainbow')"></div>
-        <div class="theme-option dark-blue" onclick="changeTheme('dark-blue')"></div>
-        <div class="theme-option christmas" onclick="changeTheme('christmas')"></div>
-        <div class="theme-option purple" onclick="changeTheme('purple')"></div>
-        <div class="theme-option pink" onclick="changeTheme('pink')"></div>
     </div>
 
     <script>
@@ -267,55 +211,10 @@
                 link.rel = 'icon';
                 link.href = iconUrl;
                 document.getElementsByTagName('head')[0].appendChild(link);
-
+                
                 // Apply the animation effect to favicon (simulating hover)
                 link.style.animation = 'zoomGlow 1s ease-in-out infinite';
             }
-        }
-
-        // Change the theme
-        function changeTheme(theme) {
-            switch(theme) {
-                case 'dark':
-                    document.body.style.backgroundColor = '#333';
-                    document.body.style.color = 'white';
-                    break;
-                case 'white':
-                    document.body.style.backgroundColor = 'white';
-                    document.body.style.color = 'black';
-                    break;
-                case 'galaxy':
-                    document.body.style.background = 'linear-gradient(45deg, #3a1c71, #d76d77, #ffaf7b)';
-                    document.body.style.color = 'white';
-                    break;
-                case 'rainbow':
-                    document.body.style.background = 'linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet)';
-                    document.body.style.color = 'white';
-                    break;
-                case 'dark-blue':
-                    document.body.style.backgroundColor = '#00008B';
-                    document.body.style.color = 'white';
-                    break;
-                case 'christmas':
-                    document.body.style.background = 'linear-gradient(45deg, red, green)';
-                    document.body.style.color = 'white';
-                    break;
-                case 'purple':
-                    document.body.style.backgroundColor = '#800080';
-                    document.body.style.color = 'white';
-                    break;
-                case 'pink':
-                    document.body.style.backgroundColor = '#FFC0CB';
-                    document.body.style.color = 'black';
-                    break;
-            }
-        }
-
-        // Set custom background from user input
-        function setCustomBackground() {
-            const bgUrl = document.getElementById('bg-url').value;
-            document.body.style.background = `url(${bgUrl}) no-repeat center center fixed`;
-            document.body.style.backgroundSize = 'cover';
         }
     </script>
 </body>
