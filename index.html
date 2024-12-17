@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnblockZone - Settings</title>
+    <title>UnblockZone</title>
     <style>
         /* Prevent scrolling */
         html, body {
@@ -113,7 +113,6 @@
             padding: 10px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
             width: 150px;
         }
 
@@ -127,15 +126,6 @@
             height: 80px;
             border-radius: 10px;
             margin-bottom: 10px;
-        }
-
-        .cloaker-option input {
-            display: block;
-            margin: 5px auto;
-            width: 90%;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
         }
 
         @media (max-width: 768px) {
@@ -165,36 +155,29 @@
 
     <!-- Scrollable Settings Box -->
     <div class="scroll-box">
-        <h2>Tab Cloaker</h2>
+        <h2>Tab Cloacker</h2>
         <div class="cloaker-section">
-            <!-- Cloaker Option 1: Canvas -->
-            <div class="cloaker-option" onclick="applyCloak('Home', 'https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp')">
-                <img src="https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp" alt="Canvas">
+            <!-- Canvas Cloaker -->
+            <div class="cloaker-option" onclick="setTabCloak('Home', '')">
+                <img src="https://via.placeholder.com/80" alt="Canvas">
                 <span>Canvas</span>
-                <input type="text" placeholder="Custom URL">
-                <input type="text" placeholder="Custom Name">
             </div>
-
-            <!-- Cloaker Option 2: Google Drive -->
-            <div class="cloaker-option" onclick="applyCloak('My Drive - Google Drive', 'https://cdn.iconscout.com/icon/free/png-256/free-google-drive-logo-icon-download-in-svg-png-gif-file-formats--workspace-logos-icons-2416659.png?f=webp')">
-                <img src="https://cdn.iconscout.com/icon/free/png-256/free-google-drive-logo-icon-download-in-svg-png-gif-file-formats--workspace-logos-icons-2416659.png?f=webp" alt="Google Drive">
+            <!-- Google Drive Cloaker -->
+            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive', '')">
+                <img src="https://via.placeholder.com/80" alt="Google Drive">
                 <span>Google Drive</span>
-                <input type="text" placeholder="Custom URL">
-                <input type="text" placeholder="Custom Name">
             </div>
-
-            <!-- Add additional cloakers here -->
-            <div class="Cloaker-option">
-                <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="Google">
-                <span>Google</span>
-                <input type="text" placeholder="Custom URL">
-                <input type="text" placeholder="Custom Name">
-            </div>
+            <!-- Custom Cloaker -->
             <div class="cloaker-option">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv9vKu9dgmmYMpVKHRiV0P0p0zJvfYO-KfoQ&s" alt="Delta Math">
-                <span>Delat Math</span>
-                <input type="text" placeholder="Custom URL">
-                <input type="text" placeholder="Custom Name">
+                <img src="https://via.placeholder.com/80" alt="Custom">
+                <span>Custom Cloaker</span>
+                <input type="text" placeholder="Custom URL" id="custom-url">
+                <input type="text" placeholder="Custom Name" id="custom-name">
+            </div>
+            <!-- UnblockZone Cloaker -->
+            <div class="cloaker-option" onclick="setTabCloak('UnblockZone', '')">
+                <img src="https://icones.pro/wp-content/uploads/2021/04/icone-internet-bleue.png" alt="UnblockZone">
+                <span>UnblockZone</span>
             </div>
         </div>
     </div>
@@ -210,14 +193,28 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Apply cloaker functionality
-        function applyCloak(newTitle, imageUrl) {
-            document.title = newTitle; // Change the tab name
-            const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
-            link.rel = 'icon';
-            link.href = imageUrl;
-            document.getElementsByTagName('head')[0].appendChild(link);
+        // Function to set tab title and optional icon
+        function setTabCloak(title, iconUrl) {
+            document.title = title;
+            if (iconUrl) {
+                const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+                link.rel = 'icon';
+                link.href = iconUrl;
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
         }
+
+        // Custom Cloaker Functionality
+        document.getElementById("custom-name").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                const customName = document.getElementById("custom-name").value;
+                const customUrl = document.getElementById("custom-url").value;
+
+                if (customName) {
+                    setTabCloak(customName, customUrl);
+                }
+            }
+        });
     </script>
 </body>
 </html>
