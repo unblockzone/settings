@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,24 +194,12 @@
     </div>
 
     <script>
-        // Real-time clock with North Carolina time
+        // Real-time clock
         function updateClock() {
             const now = new Date();
-
-            // Local time
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const localTime = `${hours}:${minutes}`;
-
-            // North Carolina time
-            const utcOffset = now.getTimezoneOffset(); // Offset in minutes
-            const estOffset = utcOffset + 300; // EST is UTC-5
-            const estTime = new Date(now.getTime() + estOffset * 60000);
-            const estHours = String(estTime.getUTCHours()).padStart(2, '0');
-            const estMinutes = String(estTime.getUTCMinutes()).padStart(2, '0');
-            const ncTime = `${estHours}:${estMinutes}`;
-
-            document.getElementById('clock').textContent = `Local: ${localTime} | NC: ${ncTime}`;
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
         }
         setInterval(updateClock, 1000);
         updateClock();
