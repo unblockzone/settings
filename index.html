@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UnblockZone</title>
     <style>
-        /* Prevent horizontal and vertical scrolling */
+        /* Prevent scrolling */
         html, body {
             margin: 0;
             padding: 0;
@@ -37,7 +37,6 @@
         h1 {
             font-size: 50px;
             margin: 0;
-            display: inline-block;
             transition: transform 0.3s ease;
         }
 
@@ -65,58 +64,21 @@
             border-radius: 20px;
             font-size: 18px;
             text-decoration: none;
-            text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .nav-button:hover {
             transform: scale(1.1);
-            background-color: black;
             box-shadow: 0px 0px 15px 4px #008CFF;
             color: #008CFF;
         }
 
         .clock {
             font-size: 20px;
-            color: white;
             font-weight: bold;
             background-color: #444;
             padding: 5px 10px;
             border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .clock:hover {
-            transform: scale(1.2);
-            box-shadow: 0px 0px 15px 5px #008CFF;
-        }
-
-        .snow-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .snowflake, .snowball {
-            position: absolute;
-            top: -10px;
-            color: white;
-            font-size: 10px;
-            opacity: 0.8;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(110vh);
-            }
         }
 
         /* Scrollable Box */
@@ -126,54 +88,63 @@
             margin: 50px auto;
             background-color: #333;
             border-radius: 20px;
-            overflow-y: auto; /* Makes the box scrollable */
+            overflow-y: auto;
             padding: 20px;
-            box-shadow: 0px 0px 10px 2px #111;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .scroll-box:hover {
-            transform: scale(1.05); /* Zoom effect */
-            box-shadow: 0px 0px 20px 6px #008CFF; /* Blue glow */
         }
 
         .scroll-box h2 {
-            font-size: 40px;
-            margin-top: 0;
+            font-size: 30px;
             color: #008CFF;
         }
 
-        .scroll-box p {
-            font-size: 18px;
-            line-height: 1.6;
-            text-align: left;
-            color: white;
+        /* Cloaker Section */
+        .cloaker-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .cloaker-option {
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px #111;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            width: 150px;
+        }
+
+        .cloaker-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px 5px #008CFF;
+        }
+
+        .cloaker-option img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .cloaker-option input {
+            display: block;
+            margin: 5px auto;
+            width: 90%;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 40px;
-            }
-
-            .nav-buttons {
-                display: block;
-                text-align: center;
-                margin-top: 10px;
-            }
-
-            .nav-button {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .clock {
-                font-size: 16px;
-                padding: 3px 6px;
-            }
-
             .scroll-box {
                 width: 90%;
                 height: 60vh;
+            }
+            .cloaker-option {
+                width: 120px;
             }
         }
     </style>
@@ -192,12 +163,41 @@
         <div id="clock" class="clock"></div>
     </header>
 
-    <!-- Scrollable Box -->
+    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
-        <h2>Settings</h2>
-    </div>
+        <h2>Tab Cloacker</h2>
+        <div class="cloaker-section">
+            <!-- Cloaker Option 1: Canvas -->
+            <div class="cloaker-option" onclick="applyCloak('Home', 'https://your-canvas-image-url.com')">
+                <img src="https://via.placeholder.com/80" alt="Canvas">
+                <span>Canvas</span>
+                <input type="text" placeholder="Custom URL">
+                <input type="text" placeholder="Custom Name">
+            </div>
 
-    <div class="snow-container" id="snowContainer"></div> <!-- Snow effect -->
+            <!-- Cloaker Option 2: Google Drive -->
+            <div class="cloaker-option" onclick="applyCloak('My Drive - Google Drive', 'https://your-google-drive-image-url.com')">
+                <img src="https://via.placeholder.com/80" alt="Google Drive">
+                <span>Google Drive</span>
+                <input type="text" placeholder="Custom URL">
+                <input type="text" placeholder="Custom Name">
+            </div>
+
+            <!-- Add additional cloakers here -->
+            <div class="cloaker-option">
+                <img src="https://via.placeholder.com/80" alt="Cloaker 3">
+                <span>Custom Cloaker</span>
+                <input type="text" placeholder="Custom URL">
+                <input type="text" placeholder="Custom Name">
+            </div>
+            <div class="cloaker-option">
+                <img src="https://via.placeholder.com/80" alt="Cloaker 4">
+                <span>Custom Cloaker</span>
+                <input type="text" placeholder="Custom URL">
+                <input type="text" placeholder="Custom Name">
+            </div>
+        </div>
+    </div>
 
     <script>
         // Real-time clock
@@ -210,35 +210,14 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Snow effect generator
-        const snowContainer = document.getElementById('snowContainer');
-
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.textContent = '❄';
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDuration = Math.random() * 2 + 2 + 's';
-            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-            snowflake.style.opacity = Math.random() * 0.8 + 0.2;
-
-            snowContainer.appendChild(snowflake);
-            setTimeout(() => snowflake.remove(), 5000);
+        // Apply cloaker functionality
+        function applyCloak(newTitle, imageUrl) {
+            document.title = newTitle; // Change the tab name
+            const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+            link.rel = 'icon';
+            link.href = imageUrl;
+            document.getElementsByTagName('head')[0].appendChild(link);
         }
-
-        function createSnowball() {
-            const snowball = document.createElement('div');
-            snowball.classList.add('snowball');
-            snowball.textContent = '⚪';
-            snowball.style.left = Math.random() * 100 + 'vw';
-            snowball.style.animationDuration = Math.random() * 2 + 1 + 's';
-
-            snowContainer.appendChild(snowball);
-            setTimeout(() => snowball.remove(), 5000);
-        }
-
-        setInterval(createSnowflake, 150);
-        setInterval(createSnowball, 100);
     </script>
 </body>
 </html>
