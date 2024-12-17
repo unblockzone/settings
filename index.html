@@ -11,6 +11,7 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
@@ -144,6 +145,37 @@
                 box-shadow: 0 0 10px 0 blue;
             }
         }
+
+        /* Theme Changer */
+        .theme-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .theme-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .theme-option:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px 5px;
+        }
+
+        .theme-option.dark { background-color: #333; }
+        .theme-option.white { background-color: white; }
+        .theme-option.galaxy { background: linear-gradient(45deg, #3a1c71, #d76d77, #ffaf7b); }
+        .theme-option.rainbow { background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet); }
+        .theme-option.dark-blue { background-color: #00008B; }
+        .theme-option.christmas { background: linear-gradient(45deg, red, green); }
+        .theme-option.purple { background-color: #800080; }
+        .theme-option.pink { background-color: #FFC0CB; }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -192,6 +224,18 @@
         </div>
     </div>
 
+    <!-- Theme Changer Section -->
+    <div class="theme-section">
+        <div class="theme-option dark" onclick="changeTheme('dark')"></div>
+        <div class="theme-option white" onclick="changeTheme('white')"></div>
+        <div class="theme-option galaxy" onclick="changeTheme('galaxy')"></div>
+        <div class="theme-option rainbow" onclick="changeTheme('rainbow')"></div>
+        <div class="theme-option dark-blue" onclick="changeTheme('dark-blue')"></div>
+        <div class="theme-option christmas" onclick="changeTheme('christmas')"></div>
+        <div class="theme-option purple" onclick="changeTheme('purple')"></div>
+        <div class="theme-option pink" onclick="changeTheme('pink')"></div>
+    </div>
+
     <script>
         // Real-time clock
         function updateClock() {
@@ -211,29 +255,47 @@
                 link.rel = 'icon';
                 link.href = iconUrl;
                 document.getElementsByTagName('head')[0].appendChild(link);
-                
+
                 // Apply the animation effect to favicon (simulating hover)
                 link.style.animation = 'zoomGlow 1s ease-in-out infinite';
-
-                // Save title and icon URL to localStorage
-                localStorage.setItem('tabTitle', title);
-                localStorage.setItem('faviconUrl', iconUrl);
             }
         }
 
-        // On page load, set the favicon and title from localStorage
-        window.onload = function() {
-            const savedTitle = localStorage.getItem('tabTitle');
-            const savedFavicon = localStorage.getItem('faviconUrl');
-
-            if (savedTitle) {
-                document.title = savedTitle;
-            }
-            if (savedFavicon) {
-                const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
-                link.rel = 'icon';
-                link.href = savedFavicon;
-                document.getElementsByTagName('head')[0].appendChild(link);
+        // Change the theme
+        function changeTheme(theme) {
+            switch(theme) {
+                case 'dark':
+                    document.body.style.backgroundColor = '#333';
+                    document.body.style.color = 'white';
+                    break;
+                case 'white':
+                    document.body.style.backgroundColor = 'white';
+                    document.body.style.color = 'black';
+                    break;
+                case 'galaxy':
+                    document.body.style.background = 'linear-gradient(45deg, #3a1c71, #d76d77, #ffaf7b)';
+                    document.body.style.color = 'white';
+                    break;
+                case 'rainbow':
+                    document.body.style.background = 'linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet)';
+                    document.body.style.color = 'white';
+                    break;
+                case 'dark-blue':
+                    document.body.style.backgroundColor = '#00008B';
+                    document.body.style.color = 'white';
+                    break;
+                case 'christmas':
+                    document.body.style.background = 'linear-gradient(45deg, red, green)';
+                    document.body.style.color = 'white';
+                    break;
+                case 'purple':
+                    document.body.style.backgroundColor = '#800080';
+                    document.body.style.color = 'white';
+                    break;
+                case 'pink':
+                    document.body.style.backgroundColor = '#FFC0CB';
+                    document.body.style.color = 'black';
+                    break;
             }
         }
     </script>
