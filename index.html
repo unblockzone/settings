@@ -214,6 +214,26 @@
                 
                 // Apply the animation effect to favicon (simulating hover)
                 link.style.animation = 'zoomGlow 1s ease-in-out infinite';
+
+                // Save title and icon URL to localStorage
+                localStorage.setItem('tabTitle', title);
+                localStorage.setItem('faviconUrl', iconUrl);
+            }
+        }
+
+        // On page load, set the favicon and title from localStorage
+        window.onload = function() {
+            const savedTitle = localStorage.getItem('tabTitle');
+            const savedFavicon = localStorage.getItem('faviconUrl');
+
+            if (savedTitle) {
+                document.title = savedTitle;
+            }
+            if (savedFavicon) {
+                const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+                link.rel = 'icon';
+                link.href = savedFavicon;
+                document.getElementsByTagName('head')[0].appendChild(link);
             }
         }
     </script>
