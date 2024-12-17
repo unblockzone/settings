@@ -162,14 +162,42 @@
             box-shadow: 0 0 20px 5px blue;
         }
 
-        .theme-option.dark { background-color: #333; }
-        .theme-option.white { background-color: white; }
-        .theme-option.galaxy { background: linear-gradient(45deg, #3a1c71, #d76d77, #ffaf7b); }
-        .theme-option.rainbow { background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet); }
-        .theme-option.dark-blue { background-color: #00008B; }
-        .theme-option.christmas { background: linear-gradient(45deg, red, green); }
-        .theme-option.purple { background-color: #800080; }
-        .theme-option.pink { background-color: #FFC0CB; }
+        /* Custom GIFs for Each Theme */
+        .theme-option.dark { background: url('https://example.com/dark-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.white { background: url('https://example.com/white-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.galaxy { background: url('https://example.com/galaxy-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.rainbow { background: url('https://example.com/rainbow-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.dark-blue { background: url('https://example.com/dark-blue-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.christmas { background: url('https://example.com/christmas-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.purple { background: url('https://example.com/purple-theme.gif') no-repeat center center; background-size: cover; }
+        .theme-option.pink { background: url('https://example.com/pink-theme.gif') no-repeat center center; background-size: cover; }
+
+        /* Input section for background URL */
+        .input-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .input-container input {
+            padding: 10px;
+            width: 60%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008CFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
@@ -186,6 +214,13 @@
         </div>
         <div id="clock" class="clock"></div>
     </header>
+
+    <!-- Input for Custom Background URL -->
+    <div class="input-container">
+        <h2>Enter a Custom Background URL</h2>
+        <input type="text" id="bg-url" placeholder="Paste background image URL here">
+        <button onclick="setCustomBackground()">Set Background</button>
+    </div>
 
     <!-- Scrollable Settings Box -->
     <div class="scroll-box">
@@ -206,20 +241,15 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
                 <span>YouTube</span>
             </div>
-            <!-- Outlook -->
-            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
-                <span>Outlook</span>
-            </div>
-            <!-- Custom Option -->
-            <div class="cloaker-option" onclick="setTabCloak('UnblockZone', 'https://cdn-icons-png.flaticon.com/512/61/61457.png')">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="UnblockZone">
-                <span>Custom Tab</span>
+            <!-- Gmail -->
+            <div class="cloaker-option" onclick="setTabCloak('Gmail', 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Gmail_Logo.svg')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Gmail_Logo.svg" alt="Gmail">
+                <span>Gmail</span>
             </div>
         </div>
     </div>
 
-    <!-- Theme Changer Section -->
+    <!-- Theme Changer -->
     <div class="theme-section">
         <div class="theme-option dark" onclick="changeTheme('dark')"></div>
         <div class="theme-option white" onclick="changeTheme('white')"></div>
@@ -292,6 +322,13 @@
                     document.body.style.color = 'black';
                     break;
             }
+        }
+
+        // Set custom background from user input
+        function setCustomBackground() {
+            const bgUrl = document.getElementById('bg-url').value;
+            document.body.style.background = `url(${bgUrl}) no-repeat center center fixed`;
+            document.body.style.backgroundSize = 'cover';
         }
     </script>
 </body>
