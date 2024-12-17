@@ -5,26 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UnblockZone</title>
     <style>
-        body {
+        /* Prevent horizontal and vertical scrolling */
+        html, body {
             margin: 0;
-            height: 100vh;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
             background-color: black;
             font-family: 'Bowlby One', sans-serif;
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Align content at the top */
-            overflow: hidden; /* Remove overflow */
+            text-align: center;
+            position: relative;
         }
 
         header {
             background-color: #333;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Align everything to the left */
+            justify-content: space-between;
             padding: 10px 20px;
-            width: 100%;
-            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         h1 {
@@ -48,62 +55,75 @@
 
         .nav-buttons {
             display: flex;
-            gap: 10px; /* Reduced gap to bring buttons closer */
-            margin-left: 20px; /* Adjust to bring buttons closer to the title */
+            gap: 20px; /* Increased gap between buttons */
         }
 
         .nav-button {
             background-color: black;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 25px; /* Increased padding for larger size */
             border-radius: 20px;
-            font-size: 16px;
+            font-size: 18px; /* Increased font size */
             text-decoration: none;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .nav-button:hover {
             transform: scale(1.1);
+            background-color: black; /* Keep the background black */
+            box-shadow: 0px 0px 15px 4px #008CFF; /* Blue highlight with glow effect */
+            color: #008CFF; /* Change text color to blue */
+        }
+
+        .clock {
+            font-size: 20px; /* Slightly smaller font size */
+            color: white;
+            font-weight: bold;
             background-color: #444;
+            padding: 5px 10px; /* Reduced padding to make the box smaller */
+            border-radius: 10px; /* Keeps the rounded corners */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .search-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-left: 20px; /* Position the search bar next to the buttons */
+        .clock:hover {
+            transform: scale(1.2); /* Zoom effect on hover */
+            box-shadow: 0px 0px 15px 5px #008CFF; /* Glow effect on hover */
         }
 
-        input[type="text"] {
-            font-size: 18px;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 20px; /* Round corners */
-            width: 200px;
-            background-color: white;
-            color: black;
+        .snow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind all content */
+            pointer-events: none; /* Allow interaction with elements above */
         }
 
-        input[type="text"]:focus {
-            outline: none;
+        .snowflake, .snowball {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 10px;
+            opacity: 0.8;
+            animation: fall linear infinite;
         }
 
-        .icon {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .icon:hover {
-            transform: scale(1.2);
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(110vh); /* Fall beyond viewport height */
+            }
         }
 
         @media (max-width: 768px) {
             h1 {
                 font-size: 40px;
             }
+
             .nav-buttons {
                 display: block;
                 text-align: center;
@@ -115,26 +135,17 @@
                 margin-bottom: 10px;
             }
 
-            .search-bar-container {
-                margin-left: 0;
-                margin-top: 10px;
-                width: 100%;
-                justify-content: center;
-            }
-
-            input[type="text"] {
-                width: 150px;
+            .clock {
+                font-size: 16px; /* Smaller clock for mobile */
+                padding: 3px 6px;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <!-- Title with "UNBLOCKZONE" -->
         <h1><span class="white">UNBLOCK</span><span class="blue">ZONE</span></h1>
-
-        <!-- Navigation Buttons -->
         <div class="nav-buttons">
             <a href="https://your-apps-url.com" class="nav-button">APPS</a>
             <a href="https://your-games-url.com" class="nav-button">GAMES</a>
@@ -142,24 +153,51 @@
             <a href="https://your-exploits-url.com" class="nav-button">EXPLOITS</a>
             <a href="https://unblockzone.github.io/settings/" class="nav-button">SETTINGS</a>
         </div>
-
-        <!-- Search Bar -->
-        <div class="search-bar-container">
-            <input type="text" id="searchBar" placeholder="Search...">
-            <a href="#" onclick="searchPage()">
-                <img src="https://cdn-icons-png.freepik.com/512/9135/9135995.png" alt="Search Icon" class="icon">
-            </a>
-        </div>
+        <div id="clock" class="clock"></div>
     </header>
 
+    <div class="snow-container" id="snowContainer"></div> <!-- Snow effect -->
+
     <script>
-        function searchPage() {
-            const query = document.getElementById('searchBar').value.trim();
-            if (query) {
-                // Since no specific content is provided to search, add a search condition if needed.
-                alert(`Searching for: ${query}`);
-            }
+        // Real-time clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
         }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Snow effect generator
+        const snowContainer = document.getElementById('snowContainer');
+
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 2 + 2 + 's';
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            snowflake.style.opacity = Math.random() * 0.8 + 0.2;
+
+            snowContainer.appendChild(snowflake);
+            setTimeout(() => snowflake.remove(), 5000);
+        }
+
+        function createSnowball() {
+            const snowball = document.createElement('div');
+            snowball.classList.add('snowball');
+            snowball.textContent = '⚪';
+            snowball.style.left = Math.random() * 100 + 'vw';
+            snowball.style.animationDuration = Math.random() * 2 + 1 + 's';
+
+            snowContainer.appendChild(snowball);
+            setTimeout(() => snowball.remove(), 5000);
+        }
+
+        setInterval(createSnowflake, 150);
+        setInterval(createSnowball, 100);
     </script>
 </body>
 </html>
