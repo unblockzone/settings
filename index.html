@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UnblockZone - Settings</title>
     <style>
-        /* Prevent scrolling */
+        /* Prevent scrolling on the body and set overall page style */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
+            overflow: auto; /* Allow scrolling */
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -21,7 +21,7 @@
             display: flex;
             flex-direction: column;
             text-align: center;
-            position: relative;
+            padding: 20px 0;
         }
 
         header {
@@ -85,7 +85,7 @@
         /* Scrollable Box */
         .scroll-box {
             width: 80%;
-            height: 70vh;
+            height: auto;
             margin: 50px auto;
             background-color: #333;
             border-radius: 20px;
@@ -98,36 +98,31 @@
             color: #008CFF;
         }
 
-        /* Cloaker Section */
-        .cloaker-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
+        /* Custom Background Box */
+        .input-container {
+            margin: 20px 0;
+            text-align: center;
         }
 
-        .cloaker-option {
-            background-color: #222;
-            border-radius: 10px;
-            box-shadow: 0 0 10px 2px #111;
+        .input-container input {
             padding: 10px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 150px;
+            width: 60%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008CFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        .cloaker-option:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px 5px #008CFF;
-        }
-
-        .cloaker-option img {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+        .input-container button:hover {
+            background-color: #0056b3;
         }
 
         /* Theme Changer Round Box */
@@ -172,31 +167,23 @@
         .theme-option.purple { background: url('https://example.com/purple-theme.gif') no-repeat center center; background-size: cover; }
         .theme-option.pink { background: url('https://example.com/pink-theme.gif') no-repeat center center; background-size: cover; }
 
-        /* Input section for background URL */
-        .input-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .input-container input {
+        /* Custom Background Round Box Style */
+        .background-box {
+            position: relative;
+            margin: 20px auto;
+            width: 80%;
             padding: 10px;
-            width: 60%;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: url('https://example.com/your-background.gif') no-repeat center center;
+            background-size: cover;
+            box-shadow: 0 0 15px 3px #000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .input-container button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #008CFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .input-container button:hover {
-            background-color: #0056b3;
+        .background-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px 5px blue;
         }
 
     </style>
