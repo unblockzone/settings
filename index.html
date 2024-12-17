@@ -128,6 +128,22 @@
             border-radius: 10px;
             margin-bottom: 10px;
         }
+
+        /* Animating Favicon with Zoom and Glow */
+        @keyframes zoomGlow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px 0 blue;
+            }
+            50% {
+                transform: scale(1.2);
+                box-shadow: 0 0 20px 5px blue;
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px 0 blue;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -146,7 +162,7 @@
 
     <!-- Scrollable Settings Box -->
     <div class="scroll-box">
-        <h2>Tab Cloaker</h2>
+        <h2>Tab Cloacker</h2>
         <div class="cloaker-section">
             <!-- Canvas -->
             <div class="cloaker-option" onclick="setTabCloak('Canvas', 'https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp')">
@@ -169,7 +185,7 @@
                 <span>Outlook</span>
             </div>
             <!-- Custom Option -->
-            <div class="cloaker-option" onclick="setTabCloak('My Custom Tab', 'https://cdn-icons-png.flaticon.com/512/61/61457.png')">
+            <div class="cloaker-option" onclick="setTabCloak('UnblockZone', 'https://cdn-icons-png.flaticon.com/512/61/61457.png')">
                 <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="Custom">
                 <span>Custom Tab</span>
             </div>
@@ -195,6 +211,9 @@
                 link.rel = 'icon';
                 link.href = iconUrl;
                 document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Apply the animation effect to favicon (simulating hover)
+                link.style.animation = 'zoomGlow 1s ease-in-out infinite';
             }
         }
     </script>
