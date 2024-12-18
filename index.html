@@ -38,6 +38,7 @@
             font-size: 50px;
             margin: 0;
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         h1:hover {
@@ -50,6 +51,19 @@
 
         .white {
             color: white;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            transform: scale(1.2);
+            box-shadow: 0px 0px 15px 4px #008CFF;
         }
 
         .nav-buttons {
@@ -71,14 +85,6 @@
             transform: scale(1.1);
             box-shadow: 0px 0px 15px 4px #008CFF;
             color: #008CFF;
-        }
-
-        .clock {
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #444;
-            padding: 5px 10px;
-            border-radius: 10px;
         }
 
         /* Scrollable Box */
@@ -149,15 +155,10 @@
 </head>
 <body>
     <header>
-        <h1><span class="white">UNBLOCK</span><span class="blue">ZONE</span></h1>
-        <div class="nav-buttons">
-            <a href="https://unblockzone.github.io/apps/" class="nav-button">APPS</a>
-            <a href="https://unblockzone.github.io/games/" class="nav-button">GAMES</a>
-            <a href="https://unblockzone.github.io/proxies/" class="nav-button">PROXIES</a>
-            <a href="https://unblockzone.github.io/exploits/" class="nav-button">EXPLOITS</a>
-            <a href="https://unblockzone.github.io/settings/" class="nav-button">SETTINGS</a>
-        </div>
-        <div id="clock" class="clock"></div>
+        <h1 onclick="window.location.href='https://unblockzone.github.io/'">
+            <span class="white">UNBLOCK</span><span class="blue">ZONE</span>
+        </h1>
+        <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="Logo" class="logo" onclick="window.location.href='https://unblockzone.github.io/'">
     </header>
 
     <!-- Scrollable Settings Box -->
@@ -193,16 +194,6 @@
     </div>
 
     <script>
-        // Real-time clock
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
         // Set tab cloaking function
         function setTabCloak(title, iconUrl) {
             document.title = title;
