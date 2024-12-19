@@ -14,7 +14,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
+            overflow-y: auto; /* Enable scrolling */
         }
 
         body {
@@ -25,6 +25,7 @@
             flex-direction: column;
             text-align: center;
             position: relative;
+            overflow-x: hidden;
         }
 
         header {
@@ -186,6 +187,44 @@
             border-radius: 5px;
             width: 80%;
         }
+
+        /* Fullscreen Modal for Custom Theme */
+        .custom-theme-fullscreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            color: white;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .custom-theme-fullscreen input {
+            width: 50%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .custom-theme-fullscreen button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #008CFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .custom-theme-fullscreen button:hover {
+            background-color: #005fa3;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -224,53 +263,49 @@
                 <span>YouTube</span>
             </div>
             <!-- Outlook -->
-            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
+            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
                 <span>Outlook</span>
             </div>
-            <!-- Custom Option -->
-            <div class="cloaker-option" onclick="setTabCloak('UnblockZone', 'https://cdn-icons-png.flaticon.com/512/61/61457.png')">
-                <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" alt="UnblockZone">
-                <span>Custom Tab</span>
-            </div>
         </div>
-    </div>
 
-    <!-- Theme Changer Box -->
-    <div class="theme-changer">
-        <h2>Theme Changer</h2>
-        <div class="theme-options">
-            <!-- Theme: White -->
-            <div class="theme-option" onclick="changeTheme('white')">
-                <div style="background-color: white; width: 100%; height: 100%; border-radius: 10px;"></div>
-            </div>
-            <!-- Theme: Night -->
-            <div class="theme-option" onclick="changeTheme('night')">
-                <div style="background-color: black; width: 100%; height: 100%; border-radius: 10px;"></div>
-            </div>
-            <!-- Theme: Purple -->
-            <div class="theme-option" onclick="changeTheme('purple')">
-                <div style="background-color: purple; width: 100%; height: 100%; border-radius: 10px;"></div>
-            </div>
-            <!-- Theme: Blue -->
-            <div class="theme-option" onclick="changeTheme('blue')">
-                <div style="background-color: blue; width: 100%; height: 100%; border-radius: 10px;"></div>
-            </div>
-            <!-- Theme: Red -->
-            <div class="theme-option" onclick="changeTheme('red')">
-                <div style="background-color: red; width: 100%; height: 100%; border-radius: 10px;"></div>
-            </div>
-            <!-- Theme: Custom -->
-            <div class="theme-option" onclick="toggleCustomThemeInput()">
-                <div style="background-color: gray; width: 100%; height: 100%; border-radius: 10px;"></div>
+        <!-- Theme Changer Box -->
+        <div class="theme-changer">
+            <h2>Change Theme</h2>
+            <div class="theme-options">
+                <div class="theme-option" onclick="changeTheme('white')">
+                    <div style="background-color: white; width: 100%; height: 100%; border-radius: 10px;"></div>
+                </div>
+                <div class="theme-option" onclick="changeTheme('night')">
+                    <div style="background-color: black; width: 100%; height: 100%; border-radius: 10px;"></div>
+                </div>
+                <div class="theme-option" onclick="changeTheme('purple')">
+                    <div style="background-color: purple; width: 100%; height: 100%; border-radius: 10px;"></div>
+                </div>
+                <div class="theme-option" onclick="changeTheme('blue')">
+                    <div style="background-color: blue; width: 100%; height: 100%; border-radius: 10px;"></div>
+                </div>
+                <div class="theme-option" onclick="changeTheme('red')">
+                    <div style="background-color: red; width: 100%; height: 100%; border-radius: 10px;"></div>
+                </div>
+                <div class="theme-option" onclick="toggleCustomThemeInput()">
+                    <div style="background-color: gray; width: 100%; height: 100%; border-radius: 10px;"></div>
+                </div>
             </div>
         </div>
-        
+
         <!-- Custom Theme Input -->
         <div class="custom-theme-input">
             <h3>Enter Custom Theme</h3>
             <input type="file" accept="image/*" onchange="setCustomTheme(this)">
         </div>
+    </div>
+
+    <!-- Custom Theme Fullscreen Modal -->
+    <div class="custom-theme-fullscreen">
+        <h2>Upload a Custom Background</h2>
+        <input type="file" accept="image/*" onchange="setCustomTheme(this)">
+        <button onclick="toggleCustomThemeInput()">Close</button>
     </div>
 
     <script>
@@ -309,7 +344,9 @@
         // Toggle Custom Theme Input
         function toggleCustomThemeInput() {
             const inputDiv = document.querySelector('.custom-theme-input');
+            const fullscreenModal = document.querySelector('.custom-theme-fullscreen');
             inputDiv.style.display = inputDiv.style.display === 'none' ? 'block' : 'none';
+            fullscreenModal.style.display = fullscreenModal.style.display === 'none' ? 'block' : 'none';
         }
 
         // Set Custom Theme from File
