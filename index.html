@@ -63,8 +63,8 @@
 
         .nav-buttons {
             display: flex;
-            gap: 10px;
-            margin-left: 30px;
+            gap: 10px; /* Reduced gap to bring buttons closer */
+            margin-left: 30px; /* Slightly offset to the right */
         }
 
         .nav-button {
@@ -83,6 +83,7 @@
             color: #008CFF;
         }
 
+        /* Scrollable Box with blue glow effect on hover */
         .scroll-box {
             width: 80%;
             height: 70vh;
@@ -94,9 +95,10 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        /* Hover effects for the scroll-box */
         .scroll-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px 5px #008CFF;
+            transform: scale(1.05); /* Zoom effect */
+            box-shadow: 0 0 20px 5px #008CFF; /* Blue glow effect */
         }
 
         .scroll-box h2 {
@@ -104,7 +106,8 @@
             color: #008CFF;
         }
 
-        .cloaker-section, .panic-section {
+        /* Cloaker Section */
+        .cloaker-section {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
@@ -112,7 +115,7 @@
             margin-top: 20px;
         }
 
-        .cloaker-option, .panic-option {
+        .cloaker-option {
             background-color: #222;
             border-radius: 10px;
             box-shadow: 0 0 10px 2px #111;
@@ -123,41 +126,16 @@
             cursor: pointer;
         }
 
-        .cloaker-option:hover, .panic-option:hover {
+        .cloaker-option:hover {
             transform: scale(1.1);
             box-shadow: 0 0 15px 5px #008CFF;
         }
 
-        .cloaker-option img, .panic-option img {
+        .cloaker-option img {
             width: 80px;
             height: 80px;
             border-radius: 10px;
             margin-bottom: 10px;
-        }
-
-        .dropdown {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .dropdown.active {
-            display: flex;
-        }
-
-        .dropdown .option {
-            background-color: #222;
-            color: white;
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .dropdown .option:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px 5px #008CFF;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
@@ -173,57 +151,54 @@
             <a href="https://unblockzone.github.io/proxies" class="nav-button">PROXIES</a>
             <a href="https://unblockzone.github.io/exploits" class="nav-button">EXPLOITS</a>
             <a href="https://unblockzone.github.io/settings" class="nav-button">SETTINGS</a>
-            <a href="https://unblockzone.github.io/contact" class="nav-button">CONTACT</a>
+            <a href="https://unblockzone.github.io/contact" class="nav-button">CONTACT</a> <!-- Custom Contact button -->
         </div>
     </header>
 
+    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
         <h2>Tab Cloaker</h2>
         <div class="cloaker-section">
-            <!-- Add cloaker options as necessary -->
-        </div>
-
-        <h2>Panic Button</h2>
-        <div class="panic-section">
-            <div class="panic-option" onclick="toggleDropdown('panicSiteDropdown')">Panic Site</div>
-            <div class="panic-option" onclick="setPanicKey()">Panic Key</div>
-        </div>
-        <div id="panicSiteDropdown" class="dropdown">
-            <div class="option" onclick="setPanicSite('Canvas')">Canvas</div>
-            <div class="option" onclick="setPanicSite('Google Classroom')">Google Classroom</div>
-            <div class="option" onclick="setPanicSite('Google Drive')">Google Drive</div>
-            <div class="option" onclick="setPanicSite('Outlook')">Outlook</div>
+            <!-- Canvas -->
+            <div class="cloaker-option" onclick="setTabCloak('Canvas')">
+                <img src="https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp" alt="Canvas">
+                <span>Canvas</span>
+            </div>
+            <!-- Google Drive -->
+            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive')">
+                <img src="https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png" alt="Google Drive">
+                <span>Google Drive</span>
+            </div>
+            <!-- YouTube -->
+            <div class="cloaker-option" onclick="setTabCloak('YouTube')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+                <span>YouTube</span>
+            </div>
+            <!-- Outlook -->
+            <div class="cloaker-option" onclick="setTabCloak('Outlook')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
+                <span>Outlook</span>
+            </div>
         </div>
     </div>
 
     <script>
-        let panicKey = null;
-        let panicSite = null;
+        // Set tab cloaking function
+        function setTabCloak(title) {
+            document.title = title;
 
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            dropdown.classList.toggle('active');
+            // Save the tab cloaker setting to localStorage
+            localStorage.setItem('tabCloak', JSON.stringify({ title }));
         }
 
-        function setPanicSite(site) {
-            panicSite = site;
-            alert(`Panic site set to: ${site}`);
-        }
-
-        function setPanicKey() {
-            document.addEventListener('keydown', function setKeyOnce(event) {
-                panicKey = event.key;
-                alert(`Panic key set to: ${panicKey}`);
-                document.removeEventListener('keydown', setKeyOnce);
-            });
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === panicKey && panicSite) {
-                alert(`Redirecting to ${panicSite}`);
-                // Add logic to redirect to the panic site here
+        // On page load, retrieve settings from localStorage
+        window.onload = function() {
+            // Apply saved tab cloaker
+            const tabCloak = JSON.parse(localStorage.getItem('tabCloak'));
+            if (tabCloak) {
+                setTabCloak(tabCloak.title);
             }
-        });
+        }
     </script>
 </body>
 </html>
