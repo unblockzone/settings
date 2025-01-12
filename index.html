@@ -14,21 +14,31 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient background */
+            background: linear-gradient(-45deg, black, #000011, #001122, black);
+            background-size: 300% 300%;
+            animation: gradientAnimation 15s ease infinite;
             font-family: 'Bowlby One', sans-serif;
             color: white;
             display: flex;
             flex-direction: column;
             text-align: center;
             position: relative;
-            overflow-x: hidden;
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         header {
@@ -63,8 +73,7 @@
 
         .nav-buttons {
             display: flex;
-            gap: 10px; /* Reduced gap to bring buttons closer */
-            margin-left: 30px; /* Slightly offset to the right */
+            gap: 10px;
         }
 
         .nav-button {
@@ -83,7 +92,6 @@
             color: #008CFF;
         }
 
-        /* Scrollable Box with blue glow effect on hover */
         .scroll-box {
             width: 80%;
             height: 70vh;
@@ -95,10 +103,9 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Hover effects for the scroll-box */
         .scroll-box:hover {
-            transform: scale(1.05); /* Zoom effect */
-            box-shadow: 0 0 20px 5px #008CFF; /* Blue glow effect */
+            transform: scale(1.05);
+            box-shadow: 0 0 20px 5px #008CFF;
         }
 
         .scroll-box h2 {
@@ -106,7 +113,6 @@
             color: #008CFF;
         }
 
-        /* Cloaker Section */
         .cloaker-section {
             display: flex;
             flex-wrap: wrap;
@@ -137,6 +143,42 @@
             border-radius: 10px;
             margin-bottom: 10px;
         }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            background-color: blue;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 4px blue;
+            animation: float 12s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0.5;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0.5;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -151,60 +193,40 @@
             <a href="https://unblockzone.github.io/proxies" class="nav-button">PROXIES</a>
             <a href="https://unblockzone.github.io/exploits" class="nav-button">EXPLOITS</a>
             <a href="https://unblockzone.github.io/settings" class="nav-button">SETTINGS</a>
-            <a href="https://unblockzone.github.io/contact" class="nav-button">CONTACT</a> <!-- Custom Contact button -->
+            <a href="https://unblockzone.github.io/contact" class="nav-button">CONTACT</a>
         </div>
     </header>
 
-    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
         <h2>Tab Cloaker</h2>
         <div class="cloaker-section">
-            <!-- Canvas -->
-            <div class="cloaker-option" onclick="setTabCloak('Canvas', 'https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp')">
-                <img src="https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp" alt="Canvas">
-                <span>Canvas</span>
-            </div>
-            <!-- Google Drive -->
-            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive', 'https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png')">
-                <img src="https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png" alt="Google Drive">
-                <span>Google Drive</span>
-            </div>
-            <!-- YouTube -->
-            <div class="cloaker-option" onclick="setTabCloak('YouTube', 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png')">
-                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-                <span>YouTube</span>
-            </div>
-            <!-- Outlook -->
-            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
-                <span>Outlook</span>
-            </div>
+            <!-- Add your cloaker options here -->
         </div>
     </div>
 
+    <div class="background" id="background"></div>
+
     <script>
-        // Set tab cloaking function
-        function setTabCloak(title, iconUrl) {
-            document.title = title;
-            if (iconUrl) {
-                const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
-                link.rel = 'icon';
-                link.href = iconUrl;
-                document.getElementsByTagName('head')[0].appendChild(link);
-            }
+        const background = document.getElementById('background');
 
-            // Save the tab cloaker setting to localStorage
-            localStorage.setItem('tabCloak', JSON.stringify({ title, iconUrl }));
+        function createDot() {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.left = Math.random() * 100 + '%';
+            dot.style.width = dot.style.height = Math.random() * 20 + 5 + 'px';
+            dot.style.animationDuration = Math.random() * 8 + 4 + 's';
+            background.appendChild(dot);
+
+            dot.addEventListener('animationend', () => {
+                dot.remove();
+            });
         }
 
-        // On page load, retrieve settings from localStorage
-        window.onload = function() {
-            // Apply saved tab cloaker
-            const tabCloak = JSON.parse(localStorage.getItem('tabCloak'));
-            if (tabCloak) {
-                setTabCloak(tabCloak.title, tabCloak.iconUrl);
-            }
+        for (let i = 0; i < 15; i++) {
+            createDot();
         }
+
+        setInterval(createDot, 1500);
     </script>
 </body>
 </html>
