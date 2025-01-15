@@ -92,8 +92,8 @@
 
         .nav-button:hover {
             transform: scale(1.1);
-            box-shadow: 0px 0px 15px 4px #008CFF;
-            color: #008CFF;
+            box-shadow: 0px 0px 15px 4px blue;
+            color: blue;
         }
 
         .scroll-box {
@@ -109,12 +109,12 @@
 
         .scroll-box:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px 5px #008CFF;
+            box-shadow: 0 0 20px 5px blue;
         }
 
         .scroll-box h2 {
             font-size: 30px;
-            color: #008CFF;
+            color: blue;
         }
 
         .cloaker-section {
@@ -128,7 +128,7 @@
         .cloaker-option {
             background-color: #222;
             border-radius: 10px;
-            box-shadow: 0 0 10px 2px #111;
+            box-shadow: 0 0 10px 2px blue;
             padding: 10px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -138,7 +138,7 @@
 
         .cloaker-option:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 15px 5px #008CFF;
+            box-shadow: 0 0 15px 5px blue;
         }
 
         .cloaker-option img {
@@ -266,7 +266,14 @@
                 dot.style.backgroundColor = color;
                 dot.style.boxShadow = `0 0 8px 4px ${color}`;
             });
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.style.boxShadow = `0px 0px 15px 4px ${color}`;
+            });
+            document.querySelectorAll('.cloaker-option').forEach(option => {
+                option.style.boxShadow = `0 0 15px 5px ${color}`;
+            });
             document.querySelector('.blue').style.color = color;
+            document.querySelector('.scroll-box').style.boxShadow = `0 0 20px 5px ${color}`;
             localStorage.setItem('themeColor', color);
         }
 
