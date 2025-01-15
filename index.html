@@ -9,7 +9,6 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/61/61457.png" type="image/x-icon">
 
     <style>
-        /* Your existing CSS styles remain unchanged */
         /* Prevent scrolling */
         html, body {
             margin: 0;
@@ -93,8 +92,8 @@
 
         .nav-button:hover {
             transform: scale(1.1);
-            box-shadow: 0px 0px 15px 4px blue;
-            color: blue;
+            box-shadow: 0px 0px 15px 4px #008CFF;
+            color: #008CFF;
         }
 
         .scroll-box {
@@ -110,12 +109,12 @@
 
         .scroll-box:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px 5px blue;
+            box-shadow: 0 0 20px 5px #008CFF;
         }
 
         .scroll-box h2 {
             font-size: 30px;
-            color: blue;
+            color: #008CFF;
         }
 
         .cloaker-section {
@@ -129,7 +128,7 @@
         .cloaker-option {
             background-color: #222;
             border-radius: 10px;
-            box-shadow: 0 0 10px 2px blue;
+            box-shadow: 0 0 10px 2px #111;
             padding: 10px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -139,7 +138,7 @@
 
         .cloaker-option:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 15px 5px blue;
+            box-shadow: 0 0 15px 5px #008CFF;
         }
 
         .cloaker-option img {
@@ -202,8 +201,29 @@
         </div>
     </header>
 
-    <!-- Theme Changer -->
+    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
+        <h2>Tab Cloaker</h2>
+        <div class="cloaker-section">
+            <div class="cloaker-option" onclick="setTabCloak('Canvas', 'https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp')">
+                <img src="https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp" alt="Canvas">
+                <span>Canvas</span>
+            </div>
+            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive', 'https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png')">
+                <img src="https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png" alt="Google Drive">
+                <span>Google Drive</span>
+            </div>
+            <div class="cloaker-option" onclick="setTabCloak('YouTube', 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+                <span>YouTube</span>
+            </div>
+            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png" alt="Outlook">
+                <span>Outlook</span>
+            </div>
+        </div>
+
+        <!-- Theme Changer -->
         <h2>Theme Changer</h2>
         <div class="cloaker-section">
             <div class="cloaker-option" onclick="setTheme('pink')" style="background-color: pink;">
@@ -227,33 +247,56 @@
     <div class="background" id="background"></div>
 
     <script>
-        // Function to set the theme
-        function setTheme(color) {
-            localStorage.setItem('themeColor', color);
-            applyTheme(color);
+        // Set tab cloaking function
+        function setTabCloak(title, iconUrl) {
+            document.title = title;
+            if (iconUrl) {
+                const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+                link.rel = 'icon';
+                link.href = iconUrl;
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+
+            localStorage.setItem('tabCloak', JSON.stringify({ title, iconUrl }));
         }
 
-        // Function to apply the theme
-        function applyTheme(color) {
+        // Set theme
+        function setTheme(color) {
             document.querySelectorAll('.dot').forEach(dot => {
                 dot.style.backgroundColor = color;
                 dot.style.boxShadow = `0 0 8px 4px ${color}`;
             });
-            document.querySelectorAll('.nav-button').forEach(button => {
-                button.style.boxShadow = `0px 0px 15px 4px ${color}`;
-            });
-            document.querySelectorAll('.cloaker-option').forEach(option => {
-                option.style.boxShadow = `0 0 15px 5px ${color}`;
-            });
             document.querySelector('.blue').style.color = color;
-            document.querySelector('.scroll-box').style.boxShadow = `0 0 20px 5px ${color}`;
+            localStorage.setItem('themeColor', color);
         }
 
-        // Load theme on page load
+        // On page load
         window.onload = function () {
-            const savedTheme = localStorage.getItem('themeColor');
-            if (savedTheme) applyTheme(savedTheme);
+            const tabCloak = JSON.parse(localStorage.getItem('tabCloak'));
+            const themeColor = localStorage.getItem('themeColor');
+            if (tabCloak) setTabCloak(tabCloak.title, tabCloak.iconUrl);
+            if (themeColor) setTheme(themeColor);
         };
+
+        // Create floating dots
+        const background = document.getElementById('background');
+
+        function createDot() {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.left = Math.random() * 100 + '%';
+            dot.style.width = dot.style.height = Math.random() * 20 + 5 + 'px';
+            dot.style.animationDuration = Math.random() * 8 + 4 + 's';
+            background.appendChild(dot);
+
+            dot.addEventListener('animationend', () => dot.remove());
+        }
+
+        for (let i = 0; i < 15; i++) {
+            createDot();
+        }
+
+        setInterval(createDot, 1500);
     </script>
 </body>
 </html>
