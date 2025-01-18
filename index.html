@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,6 +149,42 @@
             margin-bottom: 10px;
         }
 
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            background-color: red;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 4px red;
+            animation: float 12s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0.5;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0.5;
+            }
+        }
+
         .custom-search-bar {
             font-size: 18px;
             padding: 10px 20px;
@@ -185,6 +222,7 @@
         </div>
     </header>
 
+    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
         <h2>Tab Cloaker</h2>
         <div class="cloaker-section">
@@ -205,7 +243,26 @@
                 <span>Outlook</span>
             </div>
         </div>
+
+        <!-- Theme Changer -->
+        <h2>Theme Changer</h2>
+        <div class="cloaker-section">
+            <div class="cloaker-option" onclick="setTheme('pink')" style="background-color: pink;">
+                <span>Pink</span>
+            </div>
+            <div class="cloaker-option" onclick="setTheme('white')" style="background-color: white; color: black;">
+                <span>White</span>
+            </div>
+            <div class="cloaker-option" onclick="setTheme('green')" style="background-color: green;">
+                <span>Green</span>
+            </div>
+            <div class="cloaker-option" onclick="setTheme('blue')" style="background-color: blue;">
+                <span>Blue</span>
+            </div>
+        </div>
     </div>
+
+    <div class="background" id="background"></div>
 
     <script>
         function setTabCloak(title, icon) {
@@ -214,7 +271,18 @@
             link.rel = 'icon';
             link.href = icon;
             document.head.appendChild(link);
-            window.location.href = icon; // Navigates to the image URL
+        }
+
+        function setTheme(theme) {
+            if (theme === 'pink') {
+                document.body.style.background = 'linear-gradient(-45deg, pink, #f6a0b2, #f29c92, pink)';
+            } else if (theme === 'white') {
+                document.body.style.background = 'linear-gradient(-45deg, white, lightgray, #e0e0e0, white)';
+            } else if (theme === 'green') {
+                document.body.style.background = 'linear-gradient(-45deg, green, #a5d6a7, #66bb6a, green)';
+            } else if (theme === 'blue') {
+                document.body.style.background = 'linear-gradient(-45deg, blue, #90caf9, #64b5f6, blue)';
+            }
         }
     </script>
 </body>
