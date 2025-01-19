@@ -148,25 +148,6 @@
             margin-bottom: 10px;
         }
 
-        .about-blank-button {
-            display: inline-block;
-            background-color: white;
-            color: black;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 30px;
-            text-align: center;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .about-blank-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px 5px red;
-        }
-
         .background {
             position: absolute;
             top: 0;
@@ -175,6 +156,70 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            background-color: red;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 4px red;
+            animation: float 12s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0.5;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        .custom-search-bar {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            width: 50%;
+            background-color: #555;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .custom-search-bar:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px 4px red;
+        }
+
+        .custom-search-bar:focus {
+            outline: none;
+        }
+
+        .about-blank-button {
+            background-color: white;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px; /* Adjusted margin to move button higher */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .about-blank-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px 4px red;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
@@ -194,6 +239,7 @@
         </div>
     </header>
 
+    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
         <h2>Tab Cloaker</h2>
         <div class="cloaker-section">
@@ -215,6 +261,7 @@
             </div>
         </div>
 
+        <!-- Theme Changer -->
         <h2>Theme Changer</h2>
         <div class="cloaker-section">
             <div class="cloaker-option" onclick="setTheme('pink')" style="background-color: pink;">
@@ -231,8 +278,9 @@
             </div>
         </div>
 
+        <!-- About:Blank Launcher -->
         <h2>About:Blank Cloaker</h2>
-        <a class="about-blank-button" onclick="launchAboutBlank()">Launch about:blank</a>
+        <a class="about-blank-button" style="margin-top: 10px;" onclick="launchAboutBlank()">Launch about:blank</a>
     </div>
 
     <div class="background" id="background"></div>
@@ -262,11 +310,18 @@
         }
 
         function launchAboutBlank() {
-            const newWindow = window.open('about:blank', '_blank');
-            if (newWindow) {
-                newWindow.document.write('<!DOCTYPE html><html><head><title>Unblock Zone</title></head><body style="margin: 0; overflow: hidden;"><iframe src="https://unblockzone.github.io" style="border: none; width: 100vw; height: 100vh;"></iframe></body></html>');
-                newWindow.document.close();
-            }
+            const newTab = window.open('about:blank', '_blank');
+            newTab.document.write(`
+                <html>
+                    <head>
+                        <title>UnblockZone</title>
+                        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/61/61457.png" type="image/x-icon">
+                    </head>
+                    <body style="background: black; color: white; font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh;">
+                        <h1>Welcome to UnblockZone</h1>
+                    </body>
+                </html>
+            `);
         }
     </script>
 </body>
