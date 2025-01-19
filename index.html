@@ -194,16 +194,41 @@
         </div>
     </header>
 
-    <!-- Scrollable Settings Box -->
     <div class="scroll-box">
         <h2>Tab Cloaker</h2>
         <div class="cloaker-section">
-            <!-- Cloaker options go here -->
+            <div class="cloaker-option" onclick="setTabCloak('Canvas', 'https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp', 'https://canvas.instructure.com')">
+                <img src="https://img.icons8.com/?size=512&id=oECahFP3ibID&format=png" alt="Canvas">
+                <span>Canvas</span>
+            </div>
+            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive', 'https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png', 'https://drive.google.com')">
+                <img src="https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png" alt="Google Drive">
+                <span>Google Drive</span>
+            </div>
+            <div class="cloaker-option" onclick="setTabCloak('YouTube', 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png', 'https://www.youtube.com')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+                <span>YouTube</span>
+            </div>
+            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png', 'https://outlook.live.com')">
+                <img src="https://cdn0.iconfinder.com/data/icons/logos-microsoft-office-365/128/Microsoft_Office-07-512.png" alt="Outlook">
+                <span>Outlook</span>
+            </div>
         </div>
 
         <h2>Theme Changer</h2>
         <div class="cloaker-section">
-            <!-- Theme changer options go here -->
+            <div class="cloaker-option" onclick="setTheme('pink')" style="background-color: pink;">
+                <span>Pink</span>
+            </div>
+            <div class="cloaker-option" onclick="setTheme('white')" style="background-color: white; color: black;">
+                <span>White</span>
+            </div>
+            <div class="cloaker-option" onclick="setTheme('green')" style="background-color: green;">
+                <span>Green</span>
+            </div>
+            <div class="cloaker-option" onclick="setTheme('blue')" style="background-color: blue;">
+                <span>Blue</span>
+            </div>
         </div>
 
         <h2>About:Blank Cloaker</h2>
@@ -213,6 +238,29 @@
     <div class="background" id="background"></div>
 
     <script>
+        function setTabCloak(title, icon, url) {
+            document.title = title;
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            link.href = icon;
+            document.head.appendChild(link);
+
+            // Change the current tab's URL
+            window.location.href = url;
+        }
+
+        function setTheme(theme) {
+            if (theme === 'pink') {
+                document.body.style.background = 'linear-gradient(-45deg, pink, #f6a0b2, #f29c92, pink)';
+            } else if (theme === 'white') {
+                document.body.style.background = 'linear-gradient(-45deg, white, lightgray, #e0e0e0, white)';
+            } else if (theme === 'green') {
+                document.body.style.background = 'linear-gradient(-45deg, green, #a5d6a7, #66bb6a, green)';
+            } else if (theme === 'blue') {
+                document.body.style.background = 'linear-gradient(-45deg, blue, #90caf9, #64b5f6, blue)';
+            }
+        }
+
         function launchAboutBlank() {
             const newWindow = window.open('about:blank', '_blank');
             if (newWindow) {
