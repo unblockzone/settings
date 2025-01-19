@@ -125,27 +125,21 @@
             margin-top: 20px;
         }
 
-        .cloaker-option {
-            background-color: #222;
-            border-radius: 10px;
-            box-shadow: 0 0 10px 2px #111;
-            padding: 10px;
+        .about-blank-button {
+            background-color: white;
+            color: black;
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 20px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 150px;
             cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .cloaker-option:hover {
+        .about-blank-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 15px 5px red;
-        }
-
-        .cloaker-option img {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            box-shadow: 0px 0px 20px 5px white;
         }
 
         .background {
@@ -156,52 +150,6 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-        }
-
-        .dot {
-            position: absolute;
-            background-color: red;
-            border-radius: 50%;
-            box-shadow: 0 0 8px 4px red;
-            animation: float 12s infinite ease-in-out;
-            opacity: 0.8;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) scale(0.5);
-                opacity: 0.5;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0.5;
-            }
-        }
-
-        .custom-search-bar {
-            font-size: 18px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 30px;
-            width: 50%;
-            background-color: #555;
-            color: white;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .custom-search-bar:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 0px 20px 4px red;
-        }
-
-        .custom-search-bar:focus {
-            outline: none;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Roboto:wght@700&display=swap" rel="stylesheet">
@@ -223,67 +171,26 @@
 
     <!-- Scrollable Settings Box -->
     <div class="scroll-box">
-        <h2>Tab Cloaker</h2>
+        <h2>About:Blank Cloaker</h2>
         <div class="cloaker-section">
-            <div class="cloaker-option" onclick="setTabCloak('Canvas', 'https://copyleaks.com/wp-content/uploads/2022/08/Canvas_Logo.webp', 'https://canvas.instructure.com')">
-                <img src="https://img.icons8.com/?size=512&id=oECahFP3ibID&format=png" alt="Canvas">
-                <span>Canvas</span>
-            </div>
-            <div class="cloaker-option" onclick="setTabCloak('My Drive - Google Drive', 'https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png', 'https://drive.google.com')">
-                <img src="https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Google-Drive-icon.png" alt="Google Drive">
-                <span>Google Drive</span>
-            </div>
-            <div class="cloaker-option" onclick="setTabCloak('YouTube', 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png', 'https://www.youtube.com')">
-                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-                <span>YouTube</span>
-            </div>
-            <div class="cloaker-option" onclick="setTabCloak('Outlook', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/1024px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png', 'https://outlook.live.com')">
-                <img src="https://cdn0.iconfinder.com/data/icons/logos-microsoft-office-365/128/Microsoft_Office-07-512.png" alt="Outlook">
-                <span>Outlook</span>
-            </div>
-        </div>
-
-        <!-- Theme Changer -->
-        <h2>Theme Changer</h2>
-        <div class="cloaker-section">
-            <div class="cloaker-option" onclick="setTheme('pink')" style="background-color: pink;">
-                <span>Pink</span>
-            </div>
-            <div class="cloaker-option" onclick="setTheme('white')" style="background-color: white; color: black;">
-                <span>White</span>
-            </div>
-            <div class="cloaker-option" onclick="setTheme('green')" style="background-color: green;">
-                <span>Green</span>
-            </div>
-            <div class="cloaker-option" onclick="setTheme('blue')" style="background-color: blue;">
-                <span>Blue</span>
-            </div>
+            <button class="about-blank-button" onclick="launchAboutBlank()">Launch about:blank</button>
         </div>
     </div>
 
     <div class="background" id="background"></div>
 
     <script>
-        function setTabCloak(title, icon, url) {
-            document.title = title;
-            const link = document.createElement('link');
-            link.rel = 'icon';
-            link.href = icon;
-            document.head.appendChild(link);
+        function launchAboutBlank() {
+            const newTab = window.open('about:blank', '_blank');
+            if (newTab) {
+                newTab.document.title = 'about:blank';
+                const link = newTab.document.createElement('link');
+                link.rel = 'icon';
+                link.href = ''; // No favicon
+                newTab.document.head.appendChild(link);
 
-            // Change the current tab's URL
-            window.location.href = url;
-        }
-
-        function setTheme(theme) {
-            if (theme === 'pink') {
-                document.body.style.background = 'linear-gradient(-45deg, pink, #f6a0b2, #f29c92, pink)';
-            } else if (theme === 'white') {
-                document.body.style.background = 'linear-gradient(-45deg, white, lightgray, #e0e0e0, white)';
-            } else if (theme === 'green') {
-                document.body.style.background = 'linear-gradient(-45deg, green, #a5d6a7, #66bb6a, green)';
-            } else if (theme === 'blue') {
-                document.body.style.background = 'linear-gradient(-45deg, blue, #90caf9, #64b5f6, blue)';
+                // Redirect to "unblockzone.github.io"
+                newTab.location.href = 'https://unblockzone.github.io';
             }
         }
     </script>
