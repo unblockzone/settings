@@ -18,7 +18,7 @@
         }
 
         body {
-            background: linear-gradient(-45deg, black, #000011, #220000, black);
+            background: linear-gradient(-45deg, #ADD8E6, #000011, #220000, black); /* Light blue and black gradient */
             background-size: 300% 300%;
             animation: gradientAnimation 15s ease infinite;
             font-family: 'Bowlby One', sans-serif;
@@ -74,6 +74,10 @@
             color: white;
         }
 
+        .blue {
+            color: #ADD8E6; /* Light blue color for "zone" */
+        }
+
         .nav-buttons {
             display: flex;
             gap: 10px;
@@ -92,8 +96,8 @@
 
         .nav-button:hover {
             transform: scale(1.1);
-            box-shadow: 0px 0px 15px 4px red;
-            color: red;
+            box-shadow: 0px 0px 15px 4px #ADD8E6; /* Light blue glow */
+            color: #ADD8E6; /* Light blue text on hover */
         }
 
         .scroll-box {
@@ -114,7 +118,7 @@
 
         .scroll-box h2 {
             font-size: 30px;
-            color: red;
+            color: #ADD8E6; /* Light blue text */
         }
 
         .cloaker-section {
@@ -182,7 +186,7 @@
 <body>
     <header>
         <h1 onclick="window.location.href='https://unblockzone.github.io/'">
-            <span class="white">UNBLOCK</span><span class="red">ZONE</span>
+            <span class="white">UNBLOCK</span><span class="blue">ZONE</span>
         </h1>
         <div class="nav-buttons">
             <a href="https://unblockzone.github.io/apps" class="nav-button">APPS</a>
